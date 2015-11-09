@@ -119,11 +119,12 @@ $(document).ready(function(){
     $('#audioTransition').get(0).currentTime += 5;
     $('#audioTransition').get(0).play();
 
-    setTimeout(function(){
-      $('#audioTransition').get(0).pause();
-      $('#audioBeta').get(0).currentTime = 0;
-      $('#audioBeta').get(0).play();
-    }, 2000);
+    // setTimeout(function(){
+    //   $('#audioTransition').get(0).pause();
+    //   $('#audioBeta').get(0).play();
+    // }, 2000);
+
+    $('#audioBeta').get(0).play();
 
     return false;
   });
