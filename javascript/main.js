@@ -121,6 +121,7 @@ $(document).ready(function(){
 
     setTimeout(function(){
       $('#audioTransition').get(0).pause();
+      $('#audioBeta').get(0).currentTime = 0;
       $('#audioBeta').get(0).play();
     }, 2000);
 
