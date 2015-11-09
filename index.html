@@ -13,25 +13,41 @@
     <link rel="stylesheet" href="css/styles.css">
 
     <!-- Javascript -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="javascript/main.js"></script>
 
   </head>
   <body>
-  
-    <section>
-      <div class="content">
 
-      
-
-            <!-- Your Content Goes Here -->
-            <h1>Welcome</h1>
-            <p>Put your content here. If you want some placeholder HTML content, check out the <a href="sandbox.html">Wisp Sandbox &raquo;</a>
+    <div class="content">
 
 
+        <audio id="audioDemo" controls preload="auto" src="http://traffic.libsyn.com/lavenderhour/DTFH_140_TIM_Ferriss.mp3" type="audio/mp3"></audio>
 
-      </div> <!-- end: .content -->
-    </section>
+        <div class="playerUI playStatus--paused">
+          <div class="clearfix" style="background: #eeeeee; padding: 16px;">
+            <div class="left playerUI-currentTime">0:00</div>
+            <div class="right playerUI-duration">-:--</div>
+            <div style="z-index: 1; height: 20px; left: 80px; right: 100px; position: absolute; background: #ddd;">
+              <div id="playerUI-progressPlayed" style="z-index: 2; height: 20px; left: 0; position: absolute; background: #f05a28;"></div>
+            </div>
+          </div>
+
+          <div class="clearfix" style="background: #eee; text-align: center;">
+            <a class="inline-block playerUI-seekBack back" href="">&larr; 15</a>
+            <a class="inline-block playerUI-play play" href="">&#9658;</a>
+            <a class="inline-block playerUI-pause pause" href="">&#10074;&#10074;</a>
+            <a class="inline-block playerUI-seekForward forward" href="">15 &rarr;</a>
+          </div>
+        <div>
+
+        <p style="text-align: center;"><a href="" id="magicLink">PLAY SOMETHING ELSE</a></p>
+
+        <audio id="audioTransition" controls preload="auto" src="tracks/static.mp3" type="audio/mp3"></audio>
+
+        <audio id="audioBeta" controls preload="auto" src="http://fdlyr.co/d/movies/cdn.5by5.tv/audio/broadcasts/movies/2015/movies-003.mp3" type="audio/mp3"></audio>
+
+    </div>
 
   </body>
 </html>
