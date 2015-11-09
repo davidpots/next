@@ -119,12 +119,15 @@ $(document).ready(function(){
     $('#audioTransition').get(0).currentTime += 5;
     $('#audioTransition').get(0).play();
 
-    // setTimeout(function(){
-    //   $('#audioTransition').get(0).pause();
-    //   $('#audioBeta').get(0).play();
-    // }, 2000);
-
+    // Do this to tell Mobile Safari "it is okay to play this audio [when called later on from the settimeout]"
+    //     via http://stackoverflow.com/questions/10983731/html5-audio-object-doesnt-play-on-ipad-when-called-from-a-settimeout
     $('#audioBeta').get(0).play();
+    $('#audioBeta').get(0).pause();
+
+    setTimeout(function(){
+      $('#audioTransition').get(0).pause();
+      $('#audioBeta').get(0).play();
+    }, 2000);
 
     return false;
   });
