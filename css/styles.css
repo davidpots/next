@@ -9,7 +9,7 @@ a {
 .inline-block { display: inline-block; }
 .clearfix { overflow: hidden; width: auto; }
 
-/*audio { display: none; }*/
+audio { display: none; }
 
 .playerUI a {
   width: 64px;
