@@ -24,3 +24,7 @@ audio { display: none; }
 .playerUI.playStatus--playing .playerUI-play {
   display: none;
 }
+
+.playerUI-progress {
+  z-index: 2; height: 20px; left: 0; position: absolute; background: #f05a28;
+}

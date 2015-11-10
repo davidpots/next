@@ -1,136 +1,201 @@
-// Custom Audio Player 101
-// via hacking apart this: http://demo.codesamplez.com/javascript/audio
-// -------------------------------------------------------------------------------
-
+// -----------------------------------------------------------------------------
 // Variable setup
-var audio;
-var audioDuration = null,
-    audioBuffered = null,
-    audioCurrentTime = null;
-
-
-// -----------------------------------------------------------------------------
-// Common audio functions
 // -----------------------------------------------------------------------------
 
-        function playAudio(){
+        var nextTracks = ["http://www.podtrac.com/pts/redirect.mp3/traffic.libsyn.com/nerdist/Nerdist_718_-_Robert_Rodriguez.mp3",
+                          "http://traffic.libsyn.com/joeroganexp/p692.mp3",
+                          "http://www.podtrac.com/pts/redirect.mp3/traffic.libsyn.com/recdiffs/Reconcilable_Differences_008.mp3",
+                          "http://www.pots.fm/downloads/2015-03-27--dad-rock--blood-on-the-tracks.mp3",
+                          "http://www.podtrac.com/pts/redirect.mp3/traffic.libsyn.com/songexploder/SongExploder40.mp3",
+                          "http://traffic.libsyn.com/timferriss/TFS_Sacca_Ep.mp3",
+                          "http://feeds.soundcloud.com/stream/204451292-thetalkshow-118a.mp3",
+                          "http://podcastdownload.npr.org/anon.npr-podcasts/podcast/510019/403604283/npr_403604283.mp3",
+                          "http://podcastdownload.npr.org/anon.npr-podcasts/podcast/381444908/400179647/npr_400179647.mp3",
+                          "http://traffic.libsyn.com/lorepodcast/Lore1.mp3",
+                          "http://traffic.libsyn.com/macintoshfm/macintoshfm01.mp3"];
+        var trackIndex = 0;
+
+        var audioCurrent,
+            audioNext,
+            audioAlpha,
+            audioBeta,
+            audioDethroned,
+            audioTransition;
+
+        var audioDuration = null,       // make "playerDuration" ?
+            audioBuffered = null,       // make "playerBuffered" ?
+            audioCurrentTime = null;    // make "playerCurrentTime" ?
+
+// -----------------------------------------------------------------------------
+// Common functions
+// -----------------------------------------------------------------------------
+
+        function playAudio(audio){
             audio.play();
             $('.playerUI').removeClass('playStatus--paused');
             $('.playerUI').addClass('playStatus--playing');
         }
 
-        function pauseAudio(){
+        function pauseAudio(audio){
             audio.pause();
             $('.playerUI').removeClass('playStatus--playing');
             $('.playerUI').addClass('playStatus--paused');
         }
 
         function forwardAudio(){
-            pauseAudio();
-            audio.currentTime += 15;
-            playAudio();
+            pauseAudio(audioCurrent);
+            audioCurrent.currentTime += 15;
+            playAudio(audioCurrent);
         }
 
         function backAudio(){
-            pauseAudio();
-            audio.currentTime -= 15;
-            playAudio();
+            pauseAudio(audioCurrent);
+            audioCurrent.currentTime -= 15;
+            playAudio(audioCurrent);
         }
 
-
-        // Convert seconds to time format, via http://stackoverflow.com/questions/6312993/javascript-seconds-to-time-string-with-format-hhmmss
         function toHHMMSS(seconds) {
-            var sec_num = parseInt(seconds, 10); // don't forget the second param
+            var sec_num = parseInt(seconds, 10);
             var hours   = Math.floor(sec_num / 3600);
             var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
             var seconds = sec_num - (hours * 3600) - (minutes * 60);
             return (hours ? hours + ':' : '') + (hours ? ('0' + minutes).slice(-2) : minutes) + ':' + ('0' + seconds).slice(-2);
         }
 
+        function setPlayerDuration() {
 
-        function explode(){
+        }
+
+        function processChecker(){
           console.log("---");
-          console.log("Current time: " + audio.currentTime);
-          console.log("Duration: " + audio.duration);
+          console.log("Current time: " + audioCurrent.currentTime);
+          console.log("Duration: " + audioCurrent.duration);
 
           // Found this cool trick at the URL below. if you don't do this, it throws an error should the value be zero / nonexistent
           // http://stackoverflow.com/questions/22137299/jquery-uncaught-indexsizeerror-failed-to-execute-error
-          if ( audio.buffered.length >= 1  ) {
-            console.log("Buffered: " + audio.buffered.end(audio.buffered.length-1));
+          if ( audioCurrent.buffered.length >= 1  ) {
+            console.log("Buffered: " + audioCurrent.buffered.end(audioCurrent.buffered.length-1));
           }
 
+          initPlayerUI();
+          setTimeout(processChecker, 1000);
+        }
+
+        function initPlayerUI() {
           // check if the duration is still the NaN default, via http://stackoverflow.com/questions/2652319/how-do-you-check-that-a-number-is-nan-in-javascript
-          if ( !isNaN(parseFloat( audio.duration )) ) {
-            audioDuration = toHHMMSS(audio.duration);
-            console.log(audioDuration);
+          if ( !isNaN(parseFloat( audioCurrent.duration )) ) {
+            audioDuration = toHHMMSS(audioCurrent.duration);
             $('.playerUI-duration').text(audioDuration);
           }
+        }
 
-          setTimeout(explode, 1000);
+        function playerTimeClear() {
+          // When track is changed, reset the user-facing duration and current time
+          $('.playerUI-currentTime').text("0:00");
+          $('.playerUI-duration').text("-:--");
+          $('.playerUI-progress').css('width', "0%" );
+        }
+
+        function playerTimeUpdater() {
+          audioCurrent.addEventListener('timeupdate', function(e) {
+            $('.playerUI-currentTime').text( toHHMMSS(audioCurrent.currentTime) );
+            var playPercent = 100 * (audioCurrent.currentTime / audioCurrent.duration);
+            $('.playerUI-progress').css('width', playPercent + "%" );
+          });
         }
 
 
-
-
-
-// Page load events
 $(document).ready(function(){
 
-  $('a.play').click(function(){
-    playAudio();
-    return false;
-  });
+    // ------------------------------------------------------------------------
+    // Initial setup
+    // ------------------------------------------------------------------------
 
-  $('a.pause').click(function(){
-    pauseAudio();
-    return false;
-  });
-
-  $('a.forward').click(function(){
-    forwardAudio();
-    return false;
-  });
-
-  $('a.back').click(function(){
-    backAudio();
-    return false;
-  });
+            // Weirdly -- when I did this line w/ jQuery, it returned undefined
+            // I wonder if this is a clue on how to do it with jQuery? http://stackoverflow.com/questions/32069940/html5-audio-duration-returns-undefined-jquery
+            // audio = document.getElementById('audioDemo');
+            audioCurrent = $('.audioAlpha').get(0);
+            audioBeta = $('.audioBeta').get(0);
+            audioTransition = $('.audioTransition').get(0);
+            audioNext = audioBeta;
 
 
-  // Weirdly -- when I did this line w/ jQuery, it returned undefined
-  // I wonder if this is a clue on how to do it with jQuery? http://stackoverflow.com/questions/32069940/html5-audio-duration-returns-undefined-jquery
-  // audio = document.getElementById('audioDemo');
-  audio = $('#audioDemo').get(0);
+            // Start console poller
+            processChecker();
 
-  function timeUpdate() {
-  	var playPercent = 100 * (audio.currentTime / audio.duration);
-  	$('#playerUI-progressPlayed').css('width', playPercent + "%" );
-  }
+            // Start the playerTimeUpdater
+            playerTimeUpdater();
 
-  audio.addEventListener('timeupdate', function(e) {
-    $('.playerUI-currentTime').text( toHHMMSS(audio.currentTime) );
-    timeUpdate();
-  });
 
-  explode();
+    // ------------------------------------------------------------------------
+    // PlayerUI: click Events
+    // ------------------------------------------------------------------------
 
-  $('#magicLink').click(function(){
-    pauseAudio();
-    $('#audioTransition').get(0).currentTime += 5;
-    $('#audioTransition').get(0).play();
+            // Modify current track
 
-    // Do this to tell Mobile Safari "it is okay to play this audio [when called later on from the settimeout]"
-    //     via http://stackoverflow.com/questions/10983731/html5-audio-object-doesnt-play-on-ipad-when-called-from-a-settimeout
-    $('#audioBeta').get(0).play();
-    $('#audioBeta').get(0).pause();
+            $('.playerUI-play').click(function(){
+              playAudio(audioCurrent);
+              return false;
+            });
 
-    setTimeout(function(){
-      $('#audioTransition').get(0).pause();
-      $('#audioBeta').get(0).play();
-    }, 2000);
+            $('.playerUI-pause').click(function(){
+              pauseAudio(audioCurrent);
+              return false;
+            });
 
-    return false;
-  });
+            $('.playerUI-seekForward').click(function(){
+              forwardAudio();
+              return false;
+            });
 
+            $('.playerUI-seekBack').click(function(){
+              backAudio();
+              return false;
+            });
+
+            // Change to next track
+
+            $('.playerUI-nextTrack').click(function(){
+
+              // Pause audioCurrent
+              pauseAudio(audioCurrent);
+              audioDethroned = audioCurrent;
+
+              playerTimeClear();
+
+              // Start transition audio
+              audioTransition.currentTime += Math.random() * (15 - 5) + 5;
+              playAudio(audioTransition);
+
+              // Prepare next audio
+              //      Do this to tell Mobile Safari "it is okay to play this audio [when called later on from the settimeout]"
+              //     via http://stackoverflow.com/questions/10983731/html5-audio-object-doesnt-play-on-ipad-when-called-from-a-settimeout
+              playAudio(audioNext);
+              pauseAudio(audioNext);
+
+              // Play next audio after delay
+              setTimeout(function(){
+                pauseAudio(audioTransition);
+
+                audioCurrent = audioNext;
+
+                playAudio(audioCurrent);
+
+                audioNext = audioDethroned;
+
+                $(audioNext).attr('src',nextTracks[trackIndex]);
+                $(audioNext).load();
+                trackIndex++;
+
+                playerTimeUpdater();
+              }, 2000);
+
+              // When next audio is confirmed to be playing, prep next audio
+              // ...
+
+
+
+              return false;
+            });
 
 });

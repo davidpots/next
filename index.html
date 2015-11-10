@@ -22,30 +22,30 @@
     <div class="content">
 
 
-        <audio id="audioDemo" controls preload="auto" src="http://traffic.libsyn.com/lavenderhour/DTFH_140_TIM_Ferriss.mp3" type="audio/mp3"></audio>
+        <audio class="audioAlpha"      data-currently-playing="true"  controls preload="auto" src="http://traffic.libsyn.com/lavenderhour/DTFH_140_TIM_Ferriss.mp3" type="audio/mp3"></audio>
+        <audio class="audioBeta"       data-currently-playing="false" controls preload="auto" src="http://fdlyr.co/d/movies/cdn.5by5.tv/audio/broadcasts/movies/2015/movies-003.mp3" type="audio/mp3"></audio>
+        <audio class="audioTransition" controls preload="auto" src="tracks/static.mp3" type="audio/mp3"></audio>
 
         <div class="playerUI playStatus--paused">
           <div class="clearfix" style="background: #eeeeee; padding: 16px;">
             <div class="left playerUI-currentTime">0:00</div>
             <div class="right playerUI-duration">-:--</div>
             <div style="z-index: 1; height: 20px; left: 80px; right: 100px; position: absolute; background: #ddd;">
-              <div id="playerUI-progressPlayed" style="z-index: 2; height: 20px; left: 0; position: absolute; background: #f05a28;"></div>
+              <div class="playerUI-progress"></div>
             </div>
           </div>
 
           <div class="clearfix" style="background: #eee; text-align: center;">
-            <a class="inline-block playerUI-seekBack back" href="">&larr; 15</a>
-            <a class="inline-block playerUI-play play" href="">&#9658;</a>
-            <a class="inline-block playerUI-pause pause" href="">&#10074;&#10074;</a>
-            <a class="inline-block playerUI-seekForward forward" href="">15 &rarr;</a>
+            <a class="inline-block playerUI-seekBack" href="">&larr; 15</a>
+            <a class="inline-block playerUI-play" href="">&#9658;</a>
+            <a class="inline-block playerUI-pause" href="">&#10074;&#10074;</a>
+            <a class="inline-block playerUI-seekForward" href="">15 &rarr;</a>
           </div>
         <div>
 
-        <p style="text-align: center;"><a href="" id="magicLink">PLAY SOMETHING ELSE</a></p>
+        <p style="text-align: center;"><a href="" class="playerUI-nextTrack" id="magicLink">PLAY SOMETHING ELSE</a></p>
 
-        <audio id="audioTransition" controls preload="auto" src="tracks/static.mp3" type="audio/mp3"></audio>
 
-        <audio id="audioBeta" controls preload="auto" src="http://fdlyr.co/d/movies/cdn.5by5.tv/audio/broadcasts/movies/2015/movies-003.mp3" type="audio/mp3"></audio>
 
     </div>
 
