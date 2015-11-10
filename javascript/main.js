@@ -2,6 +2,9 @@
 // Variable setup
 // -----------------------------------------------------------------------------
 
+        var label_playNextTrack = "PLAY SOMETHING NEW";
+        var label_loadingNextTrack = "Loading...";
+
         var nextTracks = ["http://www.podtrac.com/pts/redirect.mp3/traffic.libsyn.com/nerdist/Nerdist_718_-_Robert_Rodriguez.mp3",
                           "http://traffic.libsyn.com/joeroganexp/p692.mp3",
                           "http://www.podtrac.com/pts/redirect.mp3/traffic.libsyn.com/recdiffs/Reconcilable_Differences_008.mp3",
@@ -21,6 +24,8 @@
             audioBeta,
             audioDethroned,
             audioTransition;
+
+        var transitioning = false;
 
         var audioDuration = null,       // make "playerDuration" ?
             audioBuffered = null,       // make "playerBuffered" ?
@@ -66,42 +71,66 @@
 
         }
 
-        function processChecker(){
-          console.log("---");
-          console.log("Current time: " + audioCurrent.currentTime);
-          console.log("Duration: " + audioCurrent.duration);
+        function initChecker(){
+          // console.log("---");
+          // console.log("Current time: " + audioCurrent.currentTime);
+          // console.log("Duration: " + audioCurrent.duration);
+          //
+          // // Found this cool trick at the URL below. if you don't do this, it throws an error should the value be zero / nonexistent
+          // // http://stackoverflow.com/questions/22137299/jquery-uncaught-indexsizeerror-failed-to-execute-error
+          // if ( audioCurrent.buffered.length >= 1  ) {
+          //   console.log("Buffered: " + audioCurrent.buffered.end(audioCurrent.buffered.length-1));
+          // }
 
-          // Found this cool trick at the URL below. if you don't do this, it throws an error should the value be zero / nonexistent
-          // http://stackoverflow.com/questions/22137299/jquery-uncaught-indexsizeerror-failed-to-execute-error
-          if ( audioCurrent.buffered.length >= 1  ) {
-            console.log("Buffered: " + audioCurrent.buffered.end(audioCurrent.buffered.length-1));
-          }
 
-          initPlayerUI();
-          setTimeout(processChecker, 1000);
         }
 
         function initPlayerUI() {
           // check if the duration is still the NaN default, via http://stackoverflow.com/questions/2652319/how-do-you-check-that-a-number-is-nan-in-javascript
           if ( !isNaN(parseFloat( audioCurrent.duration )) ) {
+
+            $('.playerUI-currentTime').text( toHHMMSS(audioCurrent.currentTime) ); // find the other place this line lives, move it to function
+
             audioDuration = toHHMMSS(audioCurrent.duration);
             $('.playerUI-duration').text(audioDuration);
+
+            $('.playerUI-seekBack').css('visibility','visible');
+            $('.playerUI-seekForward').css('visibility','visible');
+            $('.playerUI-play').css('visibility','visible');
+            $('.playerUI-pause').css('visibility','visible');
+
+            $('.playerUI-nextTrack').text(label_playNextTrack);
+
+            return true;
+          } else {
+            return false;
           }
         }
 
         function playerTimeClear() {
           // When track is changed, reset the user-facing duration and current time
-          $('.playerUI-currentTime').text("0:00");
+          $('.playerUI-currentTime').text("-:--");
           $('.playerUI-duration').text("-:--");
           $('.playerUI-progress').css('width', "0%" );
+
+          $('.playerUI-seekBack').css('visibility','hidden');
+          $('.playerUI-seekForward').css('visibility','hidden');
+          $('.playerUI-play').css('visibility','hidden');
+          $('.playerUI-pause').css('visibility','hidden');
+
+          $('.playerUI-nextTrack').text( label_loadingNextTrack );
         }
 
         function playerTimeUpdater() {
-          audioCurrent.addEventListener('timeupdate', function(e) {
-            $('.playerUI-currentTime').text( toHHMMSS(audioCurrent.currentTime) );
-            var playPercent = 100 * (audioCurrent.currentTime / audioCurrent.duration);
-            $('.playerUI-progress').css('width', playPercent + "%" );
-          });
+
+            audioCurrent.addEventListener('timeupdate', function(e) {
+              if ( transitioning == false ) {
+                $('.playerUI-currentTime').text( toHHMMSS(audioCurrent.currentTime) ); // find the other place this line lives, move it to function
+                var playPercent = 100 * (audioCurrent.currentTime / audioCurrent.duration);
+                $('.playerUI-progress').css('width', playPercent + "%" );
+              }
+            });
+
         }
 
 
@@ -119,9 +148,12 @@ $(document).ready(function(){
             audioTransition = $('.audioTransition').get(0);
             audioNext = audioBeta;
 
+            $('.playerUI-nextTrack').text(label_playNextTrack);
 
-            // Start console poller
-            processChecker();
+            // Setup the player duration
+            if ( !initPlayerUI() ) {
+              setTimeout(initPlayerUI, 1000);
+            }
 
             // Start the playerTimeUpdater
             playerTimeUpdater();
@@ -157,6 +189,8 @@ $(document).ready(function(){
 
             $('.playerUI-nextTrack').click(function(){
 
+              transitioning = true;
+
               // Pause audioCurrent
               pauseAudio(audioCurrent);
               audioDethroned = audioCurrent;
@@ -179,6 +213,11 @@ $(document).ready(function(){
 
                 audioCurrent = audioNext;
 
+                // Setup the player duration
+                if ( !initPlayerUI() ) {
+                  setTimeout(initPlayerUI, 1000);
+                }
+
                 playAudio(audioCurrent);
 
                 audioNext = audioDethroned;
@@ -187,6 +226,7 @@ $(document).ready(function(){
                 $(audioNext).load();
                 trackIndex++;
 
+                transitioning = false;
                 playerTimeUpdater();
               }, 2000);
 
