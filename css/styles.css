@@ -4,6 +4,8 @@ a {
   text-decoration: none;
 }
 
+body.blip { background: #ffff00; }
+
 .left { float: left; }
 .right { float: right; }
 .inline-block { display: inline-block; }

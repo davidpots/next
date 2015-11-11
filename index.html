@@ -19,11 +19,25 @@
   </head>
   <body>
 
+    <div style="position: fixed; left: 20px; bottom: 20px; background: yellow; padding: 20px; z-index: 10">
+      <code style="display: block;"><strong>ALPHA</strong></code>
+      <code style="display: block;">Current time: <span class="debug-alpha-CurrentTime"></span></code>
+      <code style="display: block;">Duration:     <span class="debug-alpha-Duration"></span></code>
+      <code style="display: block;">Buffered:     <span class="debug-alpha-Buffered"></span></code>
+    </div>
+
+    <div style="position: fixed; right: 20px; bottom: 20px; background: orange; padding: 20px; z-index: 10">
+      <code style="display: block;"><strong>BETA</strong></code>
+      <code style="display: block;">Current time: <span class="debug-beta-CurrentTime"></span></code>
+      <code style="display: block;">Duration:     <span class="debug-beta-Duration"></span></code>
+      <code style="display: block;">Buffered:     <span class="debug-beta-Buffered"></span></code>
+    </div>
+
     <div class="content">
 
-        <audio class="audioAlpha"      data-currently-playing="true"  controls preload="auto" src="http://traffic.libsyn.com/lavenderhour/DTFH_140_TIM_Ferriss.mp3" type="audio/mp3"></audio>
-        <audio class="audioBeta"       data-currently-playing="false" controls preload="auto" src="http://fdlyr.co/d/movies/cdn.5by5.tv/audio/broadcasts/movies/2015/movies-003.mp3" type="audio/mp3"></audio>
-        <audio class="audioTransition" controls preload="auto" src="tracks/static.mp3" type="audio/mp3"></audio>
+        <audio class="audioAlpha"      data-currently-playing="true"  controls preload="none" src="http://www.podtrac.com/pts/redirect.mp3/traffic.libsyn.com/nerdist/Nerdist_718_-_Robert_Rodriguez.mp3" type="audio/mp3"></audio>
+        <audio class="audioBeta"       data-currently-playing="false" controls preload="none" src="http://fdlyr.co/d/movies/cdn.5by5.tv/audio/broadcasts/movies/2015/movies-003.mp3" type="audio/mp3"></audio>
+        <audio class="audioTransition" controls loop preload="auto" src="tracks/static.mp3" type="audio/mp3"></audio>
 
         <br />
         <h1>Secret podcast project</h1>

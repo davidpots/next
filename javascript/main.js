@@ -59,6 +59,26 @@
             playAudio(audioCurrent);
         }
 
+        function shutOffStaticWhenReady(audio) {
+          initialTime = audio.currentTime;
+          console.log("Initial time: " + initialTime);
+          setTimeout(function(){
+            updatedTime = audio.currentTime;
+            console.log("Updated time: " + updatedTime);
+            console.log("---");
+            if (initialTime == updatedTime) {
+              // Not playing yet. Run it again!
+              setTimeout(function(){
+                shutOffStaticWhenReady(audio);
+              }, 100);
+            } else {
+              // Plyaing. Pause the static.
+              $('body').toggleClass('blip');
+              pauseAudio(audioTransition);
+            }
+          },200);
+        }
+
         function toHHMMSS(seconds) {
             var sec_num = parseInt(seconds, 10);
             var hours   = Math.floor(sec_num / 3600);
@@ -67,22 +87,32 @@
             return (hours ? hours + ':' : '') + (hours ? ('0' + minutes).slice(-2) : minutes) + ':' + ('0' + seconds).slice(-2);
         }
 
-        function setPlayerDuration() {
-
-        }
-
-        function initChecker(){
+        function debugViewer(){
           // console.log("---");
           // console.log("Current time: " + audioCurrent.currentTime);
           // console.log("Duration: " + audioCurrent.duration);
-          //
-          // // Found this cool trick at the URL below. if you don't do this, it throws an error should the value be zero / nonexistent
-          // // http://stackoverflow.com/questions/22137299/jquery-uncaught-indexsizeerror-failed-to-execute-error
-          // if ( audioCurrent.buffered.length >= 1  ) {
-          //   console.log("Buffered: " + audioCurrent.buffered.end(audioCurrent.buffered.length-1));
+
+          $('.debug-alpha-CurrentTime').text(audioAlpha.currentTime);
+          $('.debug-alpha-Duration').text(audioAlpha.duration);
+          if ( audioAlpha.buffered.length >= 1  ) {
+            $('.debug-alpha-Buffered').text( audioAlpha.buffered.end(audioAlpha.buffered.length-1) );
+          }
+
+          $('.debug-beta-CurrentTime').text(audioBeta.currentTime);
+          $('.debug-beta-Duration').text(audioBeta.duration);
+          if ( audioBeta.buffered.length >= 1  ) {
+            $('.debug-beta-Buffered').text( audioBeta.buffered.end(audioBeta.buffered.length-1) );
+          }
+
+          // Found this cool trick at the URL below. if you don't do this, it throws an error should the value be zero / nonexistent
+          // http://stackoverflow.com/questions/22137299/jquery-uncaught-indexsizeerror-failed-to-execute-error
+
+            // console.log("Buffered: " + audioCurrent.buffered.end(audioCurrent.buffered.length-1));
           // }
 
-
+          setTimeout(function(){
+            debugViewer();
+          }, 1000);
         }
 
         function initPlayerUI() {
@@ -140,13 +170,20 @@ $(document).ready(function(){
     // Initial setup
     // ------------------------------------------------------------------------
 
+
+
             // Weirdly -- when I did this line w/ jQuery, it returned undefined
             // I wonder if this is a clue on how to do it with jQuery? http://stackoverflow.com/questions/32069940/html5-audio-duration-returns-undefined-jquery
             // audio = document.getElementById('audioDemo');
-            audioCurrent = $('.audioAlpha').get(0);
+            audioAlpha = $('.audioAlpha').get(0);
             audioBeta = $('.audioBeta').get(0);
+
+            audioCurrent = $('.audioAlpha').get(0);
             audioTransition = $('.audioTransition').get(0);
             audioNext = audioBeta;
+
+            $(audioCurrent).load();
+            $(audioNext).load();
 
             $('.playerUI-nextTrack').text(label_playNextTrack);
 
@@ -157,6 +194,9 @@ $(document).ready(function(){
 
             // Start the playerTimeUpdater
             playerTimeUpdater();
+
+            // Debug viewer
+            debugViewer();
 
 
     // ------------------------------------------------------------------------
@@ -199,7 +239,7 @@ $(document).ready(function(){
 
               // Start transition audio
               audioTransition.currentTime += Math.random() * (15 - 5) + 5;
-              playAudio(audioTransition);
+              audioTransition.play();
 
               // Prepare next audio
               //      Do this to tell Mobile Safari "it is okay to play this audio [when called later on from the settimeout]"
@@ -209,7 +249,7 @@ $(document).ready(function(){
 
               // Play next audio after delay
               setTimeout(function(){
-                pauseAudio(audioTransition);
+
 
                 audioCurrent = audioNext;
 
@@ -220,10 +260,13 @@ $(document).ready(function(){
 
                 playAudio(audioCurrent);
 
+                shutOffStaticWhenReady(audioCurrent);
+
                 audioNext = audioDethroned;
 
                 $(audioNext).attr('src',nextTracks[trackIndex]);
                 $(audioNext).load();
+                audioNext.currentTime = 100; // delete this, just for testing to prep each episode at 100 seconds
                 trackIndex++;
 
                 transitioning = false;
