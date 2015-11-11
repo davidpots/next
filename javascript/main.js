@@ -264,7 +264,9 @@ $(document).ready(function(){
 
                 $(audioNext).attr('src',nextTracks[trackIndex]);
                 $(audioNext).load();
-                audioNext.currentTime = 100; // delete this, just for testing to prep each episode at 100 seconds
+                audioNext.oncanplay = function() {
+                  audioNext.currentTime = 100;
+                }
                 trackIndex++;
 
                 transitioning = false;
@@ -278,5 +280,7 @@ $(document).ready(function(){
 
               return false;
             });
+
+
 
 });
