@@ -5,8 +5,7 @@
         var label_playNextTrack = "PLAY SOMETHING NEW";
         var label_loadingNextTrack = "Loading...";
 
-        var nextTracks = ["http://www.podtrac.com/pts/redirect.mp3/traffic.libsyn.com/nerdist/Nerdist_718_-_Robert_Rodriguez.mp3",
-                          "http://traffic.libsyn.com/joeroganexp/p692.mp3",
+        var nextTracks = ["http://traffic.libsyn.com/joeroganexp/p692.mp3",
                           "http://www.podtrac.com/pts/redirect.mp3/traffic.libsyn.com/recdiffs/Reconcilable_Differences_008.mp3",
                           "http://www.pots.fm/downloads/2015-03-27--dad-rock--blood-on-the-tracks.mp3",
                           "http://www.podtrac.com/pts/redirect.mp3/traffic.libsyn.com/songexploder/SongExploder40.mp3",
@@ -73,8 +72,7 @@
               }, 100);
             } else {
               // Plyaing. Pause the static.
-              $('body').toggleClass('blip');
-              pauseAudio(audioTransition);
+              audioTransition.pause();
             }
           },200);
         }
