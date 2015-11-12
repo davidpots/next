@@ -164,38 +164,6 @@
 
 $(document).ready(function(){
 
-    // ------------------------------------------------------------------------
-    // Initial setup
-    // ------------------------------------------------------------------------
-
-
-
-            // Weirdly -- when I did this line w/ jQuery, it returned undefined
-            // I wonder if this is a clue on how to do it with jQuery? http://stackoverflow.com/questions/32069940/html5-audio-duration-returns-undefined-jquery
-            // audio = document.getElementById('audioDemo');
-            audioAlpha = $('.audioAlpha').get(0);
-            audioBeta = $('.audioBeta').get(0);
-
-            audioCurrent = $('.audioAlpha').get(0);
-            audioTransition = $('.audioTransition').get(0);
-            audioNext = audioBeta;
-
-            $(audioCurrent).load();
-            $(audioNext).load();
-
-            $('.playerUI-nextTrack').text(label_playNextTrack);
-
-            // Setup the player duration
-            if ( !initPlayerUI() ) {
-              setTimeout(initPlayerUI, 1000);
-            }
-
-            // Start the playerTimeUpdater
-            playerTimeUpdater();
-
-            // Debug viewer
-            debugViewer();
-
 
     // ------------------------------------------------------------------------
     // PlayerUI: click Events
@@ -222,6 +190,64 @@ $(document).ready(function(){
               backAudio();
               return false;
             });
+
+
+    // ------------------------------------------------------------------------
+    // Initial setup
+    // ------------------------------------------------------------------------
+
+
+
+            // for debugging only
+            audioAlpha = $('.audioAlpha').get(0);
+            audioBeta = $('.audioBeta').get(0);
+
+            // 
+            audioCurrent    = $('.audioAlpha').get(0);
+            audioNext       = $('.audioBeta').get(0);
+            audioTransition = $('.audioTransition').get(0);
+
+            // Load the transition audio's track
+            $(audioTransition).load();
+            
+            // Load the alpha player's first track
+            audioTransition.oncanplay = function() {
+              $(audioCurrent).attr('src',nextTracks[trackIndex]);
+              trackIndex++;
+              $(audioCurrent).load();
+            }
+            
+            // Load the beta player's first track
+            audioCurrent.oncanplay = function() {
+              $(audioNext).attr('src',nextTracks[trackIndex]);
+              trackIndex++;
+              $(audioNext).load();
+            }
+
+
+            $('.playerLaunch').click(function(){
+              $(this).hide();
+              $('.playerUI').show();
+
+              $('.playerUI-nextTrack').text(label_playNextTrack);
+
+              // Setup the player duration
+              if ( !initPlayerUI() ) {
+                setTimeout(initPlayerUI, 1000);
+              }
+
+              // Start the playerTimeUpdater
+              playerTimeUpdater();
+
+              // Debug viewer
+              debugViewer();
+              
+              $('.playerUI-nextTrack').click();
+
+              return false;
+            });
+
+
 
             // Change to next track
 
