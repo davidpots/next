@@ -19,14 +19,14 @@
   </head>
   <body>
 
-    <div style="position: fixed; left: 20px; bottom: 20px; background: yellow; padding: 20px; z-index: 10">
+    <div class="debugPanel" style="position: fixed; left: 20px; bottom: 20px; background: yellow; padding: 20px; z-index: 10">
       <code style="display: block;"><strong>ALPHA</strong></code>
       <code style="display: block;">Current time: <span class="debug-alpha-CurrentTime"></span></code>
       <code style="display: block;">Duration:     <span class="debug-alpha-Duration"></span></code>
       <code style="display: block;">Buffered:     <span class="debug-alpha-Buffered"></span></code>
     </div>
 
-    <div style="position: fixed; right: 20px; bottom: 20px; background: orange; padding: 20px; z-index: 10">
+    <div class="debugPanel" style="position: fixed; right: 20px; bottom: 20px; background: orange; padding: 20px; z-index: 10">
       <code style="display: block;"><strong>BETA</strong></code>
       <code style="display: block;">Current time: <span class="debug-beta-CurrentTime"></span></code>
       <code style="display: block;">Duration:     <span class="debug-beta-Duration"></span></code>
@@ -35,8 +35,8 @@
 
     <div class="content">
 
-        <audio class="audioAlpha"      data-currently-playing="true"  controls preload="none" src="http://www.podtrac.com/pts/redirect.mp3/traffic.libsyn.com/nerdist/Nerdist_718_-_Robert_Rodriguez.mp3" type="audio/mp3"></audio>
-        <audio class="audioBeta"       data-currently-playing="false" controls preload="none" src="http://fdlyr.co/d/movies/cdn.5by5.tv/audio/broadcasts/movies/2015/movies-003.mp3" type="audio/mp3"></audio>
+        <audio class="audioAlpha"      controls preload="none" src="" type="audio/mp3"></audio>
+        <audio class="audioBeta notYetPlayed"       controls preload="none" src="" type="audio/mp3"></audio>
         <audio class="audioTransition" controls loop preload="auto" src="tracks/static.mp3" type="audio/mp3"></audio>
 
         <br />
@@ -44,9 +44,9 @@
         <p>Press the play button to begin listening. If you don't like what you hear, press "play something new" until you find something good. Just like an old school radio.</p>
 
 
-        <div class="playerLaunch">
-          <h2 style="text-align: center; text-decoration: underline;">
-            <a href="">Click to start listening</a>
+        <div class="playerLaunch playerLaunch--prelaunch">
+          <h2 style="text-align: center;">
+            <a href="">Start listening &rarr;</a>
           </h2>
         </div>
 
@@ -67,7 +67,7 @@
           </div>
         <div>
 
-        <p style="text-align: center;"><a href="" class="playerUI-nextTrack"></a></p>
+        <h2 style="text-align: center;"><a href="" class="playerUI-nextTrack"></a></h2>
 
         <br />
 

@@ -2,7 +2,7 @@
 // Variable setup
 // -----------------------------------------------------------------------------
 
-        var label_playNextTrack = "PLAY SOMETHING NEW";
+        var label_playNextTrack = "Next →";
         var label_loadingNextTrack = "Loading...";
 
         var nextTracks = ["http://traffic.libsyn.com/joeroganexp/p692.mp3",
@@ -11,6 +11,8 @@
                           "http://www.podtrac.com/pts/redirect.mp3/traffic.libsyn.com/songexploder/SongExploder40.mp3",
                           "http://traffic.libsyn.com/timferriss/TFS_Sacca_Ep.mp3",
                           "http://feeds.soundcloud.com/stream/204451292-thetalkshow-118a.mp3",
+                          "http://fdlyr.co/d/movies/cdn.5by5.tv/audio/broadcasts/movies/2015/movies-003.mp3",
+                          "http://www.podtrac.com/pts/redirect.mp3/traffic.libsyn.com/nerdist/Nerdist_718_-_Robert_Rodriguez.mp3",
                           "http://podcastdownload.npr.org/anon.npr-podcasts/podcast/510019/403604283/npr_403604283.mp3",
                           "http://podcastdownload.npr.org/anon.npr-podcasts/podcast/381444908/400179647/npr_400179647.mp3",
                           "http://traffic.libsyn.com/lorepodcast/Lore1.mp3",
@@ -60,11 +62,8 @@
 
         function shutOffStaticWhenReady(audio) {
           initialTime = audio.currentTime;
-          console.log("Initial time: " + initialTime);
           setTimeout(function(){
             updatedTime = audio.currentTime;
-            console.log("Updated time: " + updatedTime);
-            console.log("---");
             if (initialTime == updatedTime) {
               // Not playing yet. Run it again!
               setTimeout(function(){
@@ -127,7 +126,7 @@
             $('.playerUI-play').css('visibility','visible');
             $('.playerUI-pause').css('visibility','visible');
 
-            $('.playerUI-nextTrack').text(label_playNextTrack);
+            $('.playerUI-nextTrack').removeClass('disabled').text(label_playNextTrack);
 
             return true;
           } else {
@@ -159,6 +158,14 @@
               }
             });
 
+        }
+        
+        function playerNotYetLaunched() {
+          if ( $('.playerLaunch').hasClass('playerLaunch--prelaunch') ) {
+            return true;
+          } else {
+            return false;
+          }
         }
 
 
@@ -202,7 +209,6 @@ $(document).ready(function(){
             audioAlpha = $('.audioAlpha').get(0);
             audioBeta = $('.audioBeta').get(0);
 
-            // 
             audioCurrent    = $('.audioAlpha').get(0);
             audioNext       = $('.audioBeta').get(0);
             audioTransition = $('.audioTransition').get(0);
@@ -210,19 +216,33 @@ $(document).ready(function(){
             // Load the transition audio's track
             $(audioTransition).load();
             
-            // Load the alpha player's first track
-            audioTransition.oncanplay = function() {
-              $(audioCurrent).attr('src',nextTracks[trackIndex]);
-              trackIndex++;
-              $(audioCurrent).load();
-            }
+            $(audioCurrent).attr('src',nextTracks[trackIndex]);
+            $(audioCurrent).load();
+            trackIndex++;
             
-            // Load the beta player's first track
-            audioCurrent.oncanplay = function() {
-              $(audioNext).attr('src',nextTracks[trackIndex]);
-              trackIndex++;
-              $(audioNext).load();
-            }
+            $(audioNext).attr('src',nextTracks[trackIndex]);
+            $(audioNext).load();
+            trackIndex++;
+            
+            // // Load the alpha player's first track
+            // audioTransition.oncanplay = function() {
+            //   if ( playerNotYetLaunched() ) {
+            //     $(audioCurrent).attr('src',nextTracks[trackIndex]);
+            //     trackIndex++;
+            //     console.log("TI A +1");
+            //     $(audioCurrent).load();                
+            //   }
+            // }
+            // 
+            // // Load the beta player's first track
+            // audioCurrent.oncanplay = function() {
+            //   if ( playerNotYetLaunched() ) {
+            //     $(audioNext).attr('src',nextTracks[trackIndex]);
+            //     trackIndex++;
+            //     console.log("TI B +1");
+            //     $(audioNext).load();
+            //   }
+            // }
 
 
             $('.playerLaunch').click(function(){
@@ -252,6 +272,11 @@ $(document).ready(function(){
             // Change to next track
 
             $('.playerUI-nextTrack').click(function(){
+              
+              // Prob kinda rusy to do this on each "next" click -- it only needs to happen the first time it's clicked
+              $('.playerLaunch').removeClass('playerLaunch--prelaunch');
+              
+              $('.playerUI-nextTrack').addClass('disabled');
 
               transitioning = true;
 
@@ -284,25 +309,22 @@ $(document).ready(function(){
 
                 playAudio(audioCurrent);
 
-                shutOffStaticWhenReady(audioCurrent);
+                shutOffStaticWhenReady(audioCurrent);               
+                
 
                 audioNext = audioDethroned;
 
                 $(audioNext).attr('src',nextTracks[trackIndex]);
                 $(audioNext).load();
                 audioNext.oncanplay = function() {
-                  audioNext.currentTime = 100;
+                  audioNext.currentTime = 110;
                 }
                 trackIndex++;
+                console.log(trackIndex);
 
                 transitioning = false;
                 playerTimeUpdater();
               }, 2000);
-
-              // When next audio is confirmed to be playing, prep next audio
-              // ...
-
-
 
               return false;
             });
