@@ -1,0 +1,26 @@
+/* -- Your Styles Here -- */
+
+a {
+  text-decoration: none;
+}
+
+.left { float: left; }
+.right { float: right; }
+.inline-block { display: inline-block; }
+.clearfix { overflow: hidden; width: auto; }
+
+audio { display: none; }
+
+.playerUI a {
+  width: 64px;
+  line-height: 64px;
+  text-align: center;
+}
+
+.playerUI.playStatus--paused .playerUI-pause {
+  display: none;
+}
+
+.playerUI.playStatus--playing .playerUI-play {
+  display: none;
+}
