@@ -17,17 +17,21 @@ var myAudio,
 $(document).ready(function(){
 
   myAudio = $('#my-audio').get(0);
+
+  // Load the audio
   myAudio.load();
-
-  myAudio.play();
-  myAudio.pause();
-
-  audioStartTime = 1000;
-
   duration = myAudio.duration;
 
+  // Retrieve the desired start time for the audio
+  audioStartTime = 1000;
+
+  $('.playerUI-play').click(function(){
     myAudio.currentTime = audioStartTime;
     myAudio.play();
+    return false;
+  });
+
+
 
 
   // setInterval(function() {
