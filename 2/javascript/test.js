@@ -15,13 +15,11 @@ var myAudio,
     audioStartTime;
 
 function initPlayer(audio) {
-  audio.load();
+
 
 
   $('.playerUI-play').click(function(){
 
-    audio.play();
-    audio.currentTime = 1000;
 
     return false;
   });
@@ -30,9 +28,18 @@ function initPlayer(audio) {
 $(document).ready(function(){
 
   var myAudio = document.getElementById('my-audio');
-  if (myAudio) {
-    initPlayer(myAudio);
-  }
+  // myAudio.load();
+  // if (myAudio) {
+    // initPlayer(myAudio);
+    myAudio.load();
+    // myAudio.addEventListener('canplay', function () {
+      myAudio.currentTime = 1000;
+      // myAudio.play();
+    // });
+  // }
+
+
+  // }
 //
 //   // Load the audio
 //   myAudio.load();
