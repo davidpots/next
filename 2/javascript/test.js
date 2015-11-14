@@ -21,8 +21,16 @@ window.onload = function(){
 
   audioStartTime = 1000;
 
-  myAudio.currentTime = audioStartTime;
   duration = myAudio.duration;
+
+  myAudio.play();
+  myAudio.pause();
+
+
+
+    myAudio.currentTime = audioStartTime;
+    myAudio.play();
+
 
   setInterval(function() {
 
@@ -33,7 +41,10 @@ window.onload = function(){
     }
   }, 1000);
 
-  myAudio.play();
+
+
+
+
 
 
   // myAudio.addEventListener('progress', function() {
