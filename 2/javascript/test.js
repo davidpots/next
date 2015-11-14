@@ -29,6 +29,11 @@ $(document).ready(function(){
   // if (myAudio) {
     // initPlayer(myAudio);
     myAudio.load();
+
+    myAudio.play();
+    myAudio.pause();
+
+    myAudio.currentTime = 1000;
     // myAudio.addEventListener('canplay', function () {
       // myAudio.play();
     // });
