@@ -10,42 +10,26 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/test.css">
 
     <!-- Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="javascript/main.js"></script>
+    <script src="javascript/test.js"></script>
 
   </head>
   <body>
 
     <div class="content">
+      <!-- <audio class="alpha" controls preload="none" src="http://traffic.libsyn.com/joeroganexp/p692.mp3" type="audio/mp3"></audio> -->
+      <audio id="my-audio" class="alpha" controls preload="none" src="https://s3-us-west-2.amazonaws.com/davidpots/podcasts/2015-11-11--freakonomics--tom-petty-should-everyone-be-in-a-rock-band.mp3" type="audio/mp3"></audio>
 
+      <div class="buffered">
+        <span id="buffered-amount"></span>
+      </div>
+      <div class="progress">
+        <span id="progress-amount"></span>
+      </div>
 
-        <audio id="audioDemo" controls preload="auto" src="http://traffic.libsyn.com/lavenderhour/DTFH_140_TIM_Ferriss.mp3" type="audio/mp3"></audio>
-
-        <div class="playerUI playStatus--paused">
-          <div class="clearfix" style="background: #eeeeee; padding: 16px;">
-            <div class="left playerUI-currentTime">0:00</div>
-            <div class="right playerUI-duration">-:--</div>
-            <div style="z-index: 1; height: 20px; left: 80px; right: 100px; position: absolute; background: #ddd;">
-              <div id="playerUI-progressPlayed" style="z-index: 2; height: 20px; left: 0; position: absolute; background: #f05a28;"></div>
-            </div>
-          </div>
-
-          <div class="clearfix" style="background: #eee; text-align: center;">
-            <a class="inline-block playerUI-seekBack back" href="">&larr; 15</a>
-            <a class="inline-block playerUI-play play" href="">&#9658;</a>
-            <a class="inline-block playerUI-pause pause" href="">&#10074;&#10074;</a>
-            <a class="inline-block playerUI-seekForward forward" href="">15 &rarr;</a>
-          </div>
-        <div>
-
-        <p style="text-align: center;"><a href="" id="magicLink">PLAY SOMETHING ELSE</a></p>
-
-        <audio id="audioTransition" controls preload="auto" src="tracks/static.mp3" type="audio/mp3"></audio>
-
-        <audio id="audioBeta" controls preload="auto" src="http://fdlyr.co/d/movies/cdn.5by5.tv/audio/broadcasts/movies/2015/movies-003.mp3" type="audio/mp3"></audio>
 
     </div>
 
