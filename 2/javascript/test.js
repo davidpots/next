@@ -3,10 +3,12 @@ window.onload = function(){
   var myAudio = document.getElementById('my-audio');
   var play = document.getElementById('play');
   var pause = document.getElementById('pause');
+  var jump = document.getElementById('jump');
 
   // associate functions with the 'onclick' events
   play.onclick = playAudio;
   pause.onclick = pauseAudio;
+  jump.onclick = jumpAudio;
 
   function playAudio() {
     myAudio.play();
@@ -14,6 +16,12 @@ window.onload = function(){
 
   function pauseAudio() {
     myAudio.pause();
+  }
+
+  function jumpAudio() {
+    myAudio.pause();
+    myAudio.currentTime = 10;
+    myAudio.play();
   }
 
 }
