@@ -14,7 +14,7 @@ var myAudio,
     bufferedEnd,
     audioStartTime;
 
-window.onload = function(){
+$(document).ready(function(){
 
   myAudio = document.getElementById('my-audio');
   myAudio.load();
@@ -23,23 +23,18 @@ window.onload = function(){
 
   duration = myAudio.duration;
 
-  myAudio.play();
-  myAudio.pause();
-
-
-
     myAudio.currentTime = audioStartTime;
     myAudio.play();
 
 
-  setInterval(function() {
-
-    if ( myAudio.buffered.length >= 1  ) {
-      duration = myAudio.duration;
-      var bufferedEnd = myAudio.buffered.end(myAudio.buffered.length - 1);
-      document.getElementById('buffered-amount').style.width = ((bufferedEnd / duration)*100) + "%";
-    }
-  }, 1000);
+  // setInterval(function() {
+  //
+  //   if ( myAudio.buffered.length >= 1  ) {
+  //     duration = myAudio.duration;
+  //     var bufferedEnd = myAudio.buffered.end(myAudio.buffered.length - 1);
+  //     document.getElementById('buffered-amount').style.width = ((bufferedEnd / duration)*100) + "%";
+  //   }
+  // }, 1000);
 
 
 
@@ -57,10 +52,15 @@ window.onload = function(){
   //   }
   // });
   //
-  myAudio.addEventListener('timeupdate', function() {
-    var duration =  myAudio.duration;
-    if (duration > 0) {
-      document.getElementById('progress-amount').style.width = ((myAudio.currentTime / duration)*100) + "%";
-    }
-  });
-}
+
+
+
+
+  // myAudio.addEventListener('timeupdate', function() {
+  //   var duration =  myAudio.duration;
+  //   if (duration > 0) {
+  //     document.getElementById('progress-amount').style.width = ((myAudio.currentTime / duration)*100) + "%";
+  //   }
+  // });
+
+});
