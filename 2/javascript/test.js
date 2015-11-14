@@ -16,7 +16,7 @@ var myAudio,
 
 $(document).ready(function(){
 
-  myAudio = document.getElementById('my-audio');
+  myAudio = $('#my-audio').get(0);
   myAudio.load();
 
   audioStartTime = 1000;
