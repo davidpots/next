@@ -3,7 +3,6 @@ window.onload = function(){
 
 
   var myAudio = document.getElementById('my-audio');
-  myAudio.load();
 
   var play = document.getElementById('play');
   var pause = document.getElementById('pause');
