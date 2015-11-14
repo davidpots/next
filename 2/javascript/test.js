@@ -16,8 +16,15 @@ var myAudio,
 
 function initPlayer(audio) {
   audio.load();
-  audio.currentTime = 1000;
-  audio.play();
+
+
+  $('.playerUI-play').click(function(){
+
+    audio.play();
+    audio.currentTime = 1000;
+
+    return false;
+  });
 }
 
 $(document).ready(function(){
@@ -44,12 +51,6 @@ $(document).ready(function(){
 // // myAudio.pause();
 //
 //
-//
-//   $('.playerUI-play').click(function(){
-//
-//     myAudio.play();
-//     return false;
-//   });
 //
 
 
