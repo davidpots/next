@@ -18,14 +18,11 @@ function initPlayer(audio) {
 
 
 
-  $('.playerUI-play').click(function(){
-
-
-    return false;
-  });
 }
 
 $(document).ready(function(){
+
+
 
   var myAudio = document.getElementById('my-audio');
   // myAudio.load();
@@ -33,10 +30,21 @@ $(document).ready(function(){
     // initPlayer(myAudio);
     myAudio.load();
     // myAudio.addEventListener('canplay', function () {
-      myAudio.currentTime = 1000;
       // myAudio.play();
     // });
   // }
+
+
+  $('.playerUI-play').click(function(){
+    myAudio.pause();
+    myAudio.currentTime = 1000;
+    myAudio.play();
+
+
+
+    return false;
+  });
+
 
 
   // }
