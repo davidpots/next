@@ -25,8 +25,13 @@ $(document).ready(function(){
   // Retrieve the desired start time for the audio
   audioStartTime = 1000;
 
-  $('.playerUI-play').click(function(){
+// myAudio.play();
+// myAudio.pause();
+
     myAudio.currentTime = audioStartTime;
+
+  $('.playerUI-play').click(function(){
+
     myAudio.play();
     return false;
   });
