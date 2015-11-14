@@ -19,6 +19,9 @@ $(document).ready(function(){
   myAudio = $('#my-audio').get(0);
   myAudio.load();
 
+  myAudio.play();
+  myAudio.pause();
+
   audioStartTime = 1000;
 
   duration = myAudio.duration;
