@@ -14,28 +14,43 @@ var myAudio,
     bufferedEnd,
     audioStartTime;
 
+function initPlayer(audio) {
+  audio.load();
+  audio.currentTime = 1000;
+  audio.play();
+}
+
 $(document).ready(function(){
 
-  myAudio = $('#my-audio').get(0);
-
-  // Load the audio
-  myAudio.load();
-  duration = myAudio.duration;
-
-  // Retrieve the desired start time for the audio
-  audioStartTime = 1000;
-    myAudio.currentTime = 1000;
-myAudio.play();
-myAudio.pause();
-
-
-
-  $('.playerUI-play').click(function(){
-
-    myAudio.play();
-    return false;
-  });
-
+  var myAudio = document.getElementById('my-audio');
+  if (myAudio) {
+    initPlayer(myAudio);
+  }
+//
+//   // Load the audio
+//   myAudio.load();
+//   duration = myAudio.duration;
+//
+//   // Retrieve the desired start time for the audio
+//   audioStartTime = 1000;
+//
+//   myAudio.oncanplay = function() {
+//     myAudio.currentTime = 1000;
+//   }
+//
+//
+//     // myAudio.currentTime = 1000;
+// // myAudio.play();
+// // myAudio.pause();
+//
+//
+//
+//   $('.playerUI-play').click(function(){
+//
+//     myAudio.play();
+//     return false;
+//   });
+//
 
 
 
