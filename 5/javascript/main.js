@@ -1,11 +1,3 @@
-// function isAudioReady() {
-//   if ( !isNaN(parseFloat( myAudio.duration )) ) {
-//     return true;
-//   } else {
-//     return false;
-//   }    
-// }
-
 var myAudio;
 
 window.onload = function(){
@@ -14,38 +6,29 @@ window.onload = function(){
   myAudio.load();
     
   $('.audioPlay').click(function(){
-      myAudio.currentTime = 10;
+      myAudio.currentTime = 3587;
       myAudio.play();
       return false;
   });
 
+  // -----------------------------------------------------------------------------
+  // Is player ready?
+  // -----------------------------------------------------------------------------
+
+        var isAudioReady = setInterval(function(){
+          if ( !isNaN(parseFloat( myAudio.duration )) ) {
+            audioIsReady = true;
+            $('.audioPlay').show();
+            clearInterval(isAudioReady);
+          } else {
+            audioIsReady = false;
+          }   
+        }, 250);
 
 
-
-
-
-  var isAudioReady = setInterval(function(){
-    if ( !isNaN(parseFloat( myAudio.duration )) ) {
-      audioIsReady = true;
-      $('.audioPlay').show();
-      clearInterval(isAudioReady);
-    } else {
-      audioIsReady = false;
-    }   
-  }, 250);
-
-  // setInterval(function(){
-  //   if (isAudioReady) {
-  //     console.log("audio is ready!");
-  //   }    
-  // }, 250);
-
-
-
-
-    // -----------------------------------------------------------------------------
-    // Debug
-    // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+  // Debug
+  // -----------------------------------------------------------------------------
 
         myAudio.addEventListener('canplay', function(e) {
           $('.debug-canplay').text("TRUE");
