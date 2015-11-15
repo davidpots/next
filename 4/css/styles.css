@@ -1,3 +1,7 @@
+body {
+  padding: 16px;
+}
+
 .debug-box { 
   background: yellow;
   padding: 12px 16px;

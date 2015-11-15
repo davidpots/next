@@ -3,7 +3,6 @@ var myAudio;
 window.onload = function(){
 
   myAudio = document.getElementById('alpha');
-  myAudio.load();
     
   $('.audioPlay').click(function(){
       myAudio.currentTime = 10;
