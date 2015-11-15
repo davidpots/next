@@ -30,6 +30,11 @@ window.onload = function(){
   // Debug
   // -----------------------------------------------------------------------------
 
+
+        myAudio.addEventListener('canplaythrough', function(e) {
+          $('.debug-canplaythrough').text("TRUE");
+        });
+
         myAudio.addEventListener('canplay', function(e) {
           $('.debug-canplay').text("TRUE");
         });
