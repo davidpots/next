@@ -1,9 +1,15 @@
 window.onload = function(){
 
-
-
   var myAudio = document.getElementById('alpha');
-  myAudio.currentTime = 10;
+    
+  $('.audioPlay').click(function(){
+      myAudio.currentTime = 10;
+      myAudio.play();
+      return false;
+  });
+
+}  
+  // myAudio.currentTime = 10;
   // myAudio.play();
   // 
   // 
@@ -30,7 +36,7 @@ window.onload = function(){
   //   myAudio.play();
   // }
 
-}
+// }
 
 
 // // var a;
