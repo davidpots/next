@@ -1,3 +1,11 @@
+// function isAudioReady() {
+//   if ( !isNaN(parseFloat( myAudio.duration )) ) {
+//     return true;
+//   } else {
+//     return false;
+//   }    
+// }
+
 var myAudio;
 
 window.onload = function(){
@@ -14,6 +22,23 @@ window.onload = function(){
 
 
 
+
+
+  var isAudioReady = setInterval(function(){
+    if ( !isNaN(parseFloat( myAudio.duration )) ) {
+      audioIsReady = true;
+      $('.audioPlay').show();
+      clearInterval(isAudioReady);
+    } else {
+      audioIsReady = false;
+    }   
+  }, 250);
+
+  // setInterval(function(){
+  //   if (isAudioReady) {
+  //     console.log("audio is ready!");
+  //   }    
+  // }, 250);
 
 
 
