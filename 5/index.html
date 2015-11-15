@@ -22,9 +22,21 @@
     <div class="content">
       <h1>5.01</h1>
       
+      <h3>what this does:</h3>
+      <p>
+        Seems to work (on mobile and desktop)-- but the debugger performance is spotty. Sometimes the buffered amount stops going up -- but clicking "play" seems to jigger it to be back where it should be. not sure if it is actually stopped (and the file is cached?) or if it's just updating, but still buffering).
+      </p>
+      
+      <h3>next</h3>
+      <p>
+        A. bring in the custom duration/buffered/currentTime UI, so it's more transparent where the buffering is linearly
+      </p>
+      <p>
+        B. bring in ability to change podcasts, so we can watch the debug metadata start over
+      </p>
+      
       <!-- <audio id="alpha" controls src="https://s3-us-west-2.amazonaws.com/davidpots/podcasts/2015-11-11--freakonomics--tom-petty-should-everyone-be-in-a-rock-band.mp3" type="audio/mp3"></audio> -->
       <audio id="alpha" controls src="http://traffic.libsyn.com/joeroganexp/p709.mp3" type="audio/mp3"></audio>
-      
       
       <div class="debug-box">
         <p><strong>Current time:</strong> <span class="debug-currentTime">--</span></p>
