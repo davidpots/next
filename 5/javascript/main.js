@@ -6,7 +6,8 @@ window.onload = function(){
   myAudio.load();
     
   $('.audioPlay').click(function(){
-      myAudio.currentTime = 3587;
+      // myAudio.currentTime = 3587;
+      myAudio.currentTime = 2441;
       myAudio.play();
       return false;
   });
