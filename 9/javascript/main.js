@@ -96,8 +96,8 @@ window.onload = function(){
   initThings();
   
   $('.player-next').click(function(){
-    $('.player-play').hide();
     audioCurrent.pause();
+    $('.player-play').hide();
     $(audioCurrent).attr('src','');
     $('.player-audio audio').remove();
     initThings();
@@ -105,6 +105,7 @@ window.onload = function(){
   });
   
   $('.player-play').click(function(){
+    audioCurrent.pause();
     audioCurrent.currentTime = toSeconds(track.timestamp);
     audioCurrent.play();
     return false;    
