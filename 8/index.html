@@ -9,8 +9,10 @@
     <title>My New Project</title>
 
     <!-- Stylesheets -->
+    <link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/styles.css">
+
 
     <!-- Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -20,17 +22,13 @@
   <body>
 
     <div class="content">
-      <h1>8</h1>
-      <p>
-        TBD! What to do next? I think, move to the tracks object and traversing through it -- first putting it into a single audio element.
-      </p>
-
-      <div class="audioSource">
-        <audio id="alpha" controls src="https://s3-us-west-2.amazonaws.com/davidpots/podcasts/2015-11-11--freakonomics--tom-petty-should-everyone-be-in-a-rock-band.mp3" type="audio/mp3"></audio>
+      <div class="player">
+        <h2 class="player-show">---</h2>
+        <h3 class="player-episode">---</h3>
+        <img class="player-img" src="" alt="" />
       </div>
-      
-      <h4><a class="audioPlay" style="display:none;" href="">Play</a></h4>
-      
+      <a class="player-next" href="">Play something else</a>
+
     </div>
 
   </body>
