@@ -85,15 +85,28 @@ function checkForAudio() {
   }, 250);
 }
 
+function playWhenReady() {
+  var isAudioReady = setInterval(function(){
+    if ( !isNaN(parseFloat( audioCurrent.duration )) ) {
+      audioIsReady = true;
+      $('.player-play').show().click();
+      clearInterval(isAudioReady);
+    } else {
+      audioIsReady = false;
+    }
+  }, 250);
+}
+
 function initThings() {
   loadTrack();
   loadAudio();
-  checkForAudio();
+
 }
 
 window.onload = function(){
 
   initThings();
+  checkForAudio();
   
   $('.player-next').click(function(){
     audioCurrent.pause();
@@ -101,6 +114,7 @@ window.onload = function(){
     $(audioCurrent).attr('src','');
     $('.player-audio audio').remove();
     initThings();
+    playWhenReady();
     return false;
   });
   

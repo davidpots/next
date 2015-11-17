@@ -31,6 +31,15 @@
       </div>
       <a class="player-next" href="">Play something else</a>
     </div>
+    
+    <br /><br /><br /><br />
+    <div class="content">
+      <h2 style="color:white; font-family: helvetica;">Notes:</h2>
+      <p  style="color:white; font-family: helvetica;">Okay, this works: a single audio player moves through an array of objects. There may be some loading/resources/caching stuff going on where the browser hangs on to the previously loaded audio files (slowing things down), but I'll deal with that later. Seems okay enough for now.</p>
+      <p  style="color:white; font-family: helvetica;">Biggest realization: that a single audio player is not very advantageous -- because I can't really have the "next" link's click event map to playing the next audio at the timestamp (because the audio isn't even loaded in the cache yet). I think this is the best reason yet for using double audio players... OR for using the static player to transition them, which may actually solve this problem. HMMMM.</p>
+      <h2 style="color:white; font-family: helvetica;">To clean up:</h2>
+      <p  style="color:white; font-family: helvetica;">I have two functions that are mostly the same -- the checkForAudio() and playWhenReady(). These should be one thing. In fact, the page should NOT load with a podcast tile showing. A single actions should be shown, which when tapped (1) loads the first podcast; and (2) plays that same first podcast.</p>
+    </div>
 
   </body>
 </html>
