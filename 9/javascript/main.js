@@ -105,6 +105,7 @@ window.onload = function(){
   });
   
   $('.player-play').click(function(){
+    audioCurrent.play();
     audioCurrent.pause();
     audioCurrent.currentTime = toSeconds(track.timestamp);
     audioCurrent.play();
