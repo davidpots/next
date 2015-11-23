@@ -5,15 +5,14 @@ $(window).bind("load", function() {
   myAudio = document.getElementById('alpha');
   myAudio.load();
 
-  initPlayerUI();
-  // // Setup the player duration
-  // if ( !initPlayerUI() ) {
-  //   setTimeout(initPlayerUI, 1000);
-  // }
+  myAudio.play();
+  myAudio.pause();
 
+  initPlayerUI();
     
   $('.audioPlay').click(function(){
       // myAudio.currentTime = 3587;
+      myAudio.pause();
       myAudio.currentTime = 2441;
       myAudio.play();
       return false;
@@ -55,41 +54,15 @@ $(window).bind("load", function() {
 
 
 
+  //Makes timeline clickable
 
   var timeline = $('.progress');
-  //Makes timeline clickable
   $(timeline).click(function(event){
-    
     var percentDestination = 100 * ( event.pageX - $(timeline).offset().left ) / timeline.width();
     $('.progress-played').css('width', percentDestination + "%" );
     myAudio.pause();
     myAudio.currentTime = (percentDestination / 100) * myAudio.duration;
     myAudio.play();
-
-    
-  	// moveplayhead(event);
-  	// myAudio.currentTime = myAudio.duration * clickPercent(event);
-    
-
-    // returns click as decimal (.77) of the total timelineWidth
-    function clickPercent(e) {
-    	// return (e.pageX - timeline.offsetLeft) / timeline.width();
-    }
-     
-    function moveplayhead(e) {
-    	// var newMargLeft = e.pageX - timeline.offsetLeft;
-      //       
-    	// if (newMargLeft = 0 && newMargLeft = timelineWidth) {
-    	// 	playhead.style.marginLeft = newMargLeft + "px";
-    	// }
-    	// if (newMargLeft  0) {
-    	// 	playhead.style.marginLeft = "0px";
-    	// }
-    	// if (newMargLeft  timelineWidth) {
-    	// 	playhead.style.marginLeft = timelineWidth + "px";
-    	// }
-    }
-
   });
 
 
