@@ -5,7 +5,7 @@ $(window).bind("load", function() {
   myAudio = document.getElementById('alpha');
   myAudio.load();
 
-  myAudio.currentTime = 2441;
+
 
   initPlayerUI();
     
@@ -31,6 +31,8 @@ $(window).bind("load", function() {
       if ( !isNaN(parseFloat( myAudio.duration )) ) {
         $('.player-time-current').text( toHHMMSS(myAudio.currentTime) );
         $('.player-time-total').text( toHHMMSS(myAudio.duration) );
+
+        myAudio.currentTime = 2441;
       }
       
       if ( myAudio.currentTime > 0) {
