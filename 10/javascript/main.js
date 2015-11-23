@@ -5,15 +5,13 @@ $(window).bind("load", function() {
   myAudio = document.getElementById('alpha');
   myAudio.load();
 
-  myAudio.play();
-  myAudio.pause();
+  myAudio.currentTime = 2441;
 
   initPlayerUI();
     
   $('.audioPlay').click(function(){
       // myAudio.currentTime = 3587;
-      myAudio.pause();
-      myAudio.currentTime = 2441;
+      // myAudio.currentTime = 2441;
       myAudio.play();
       return false;
   });
